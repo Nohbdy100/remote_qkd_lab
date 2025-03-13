@@ -18,6 +18,7 @@ void press_button() {
 }
 
 void loop() {
+    s1.write(release_angle); // ensure the servo is initialized correctly positionally
     if (Serial.available() > 0) {
         String command = Serial.readStringUntil('\n');
         command.trim();
