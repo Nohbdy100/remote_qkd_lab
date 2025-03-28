@@ -45,6 +45,23 @@ These logical lab environments will consist of two physical lab environments.
 Students will be able to work through the lab by using each of the two physical
 lab environments as necessary.
 
+### Servo Mounting and button pressing
+
+The servo motor will be mounted on a four-sided base to provide it with as much
+stability to the motor as possible.
+It will drive a rack and pinion design; where the pinion is attached to the
+servo motor and the rack is driven vertically to enable button pressing.
+To ensure the rack's stability, it should have a supporting channel to keep it
+from driving out of line.
+These parts can all be 3D printed.
+
+The exacts of this physical construct have yet to be determined and include:
+
+- Pressure required
+  - Power of servo / gear ratios
+- Actual design of parts
+
+
 ## Web application
 
 The web application will provide the business logic necessary for the remote lab
