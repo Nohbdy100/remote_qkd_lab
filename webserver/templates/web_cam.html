@@ -24,6 +24,21 @@
             });
     </script>
 
+
+    <form id="press_button" action="/press_button" method="get">
+        <button type="submit">Press button</button>
+    </form>
+
+    <script>
+        document.getElementById('press_button').addEventListener('submit', function (event) {
+            event.preventDefault();
+            fetch('/press_button', {method: 'GET'})
+                .then(response => response.json())
+                .then(data => console.log(data));
+        });
+    </script>
+
+
 </body>
 
 </html>
