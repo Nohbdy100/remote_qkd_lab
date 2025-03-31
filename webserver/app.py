@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import serial
 import sys # for parsing args
 from unittest.mock import MagicMock # for local development
@@ -51,6 +51,11 @@ def press_button():
     ser.write(b'press')
     print('Button Pressed') # WARN: debug
     return jsonify({'message': 'button pressed'})
+
+@app.route('/web_cam')
+def web_cam():
+    return render_template('web_cam.html')
+
 
 ################################################################################
 
