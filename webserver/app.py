@@ -44,7 +44,7 @@ server
 
 app = Flask(__name__)
 
-@app.route('/press_button')
+@app.route('/press_button', methods=['POST'])
 def press_button():
     print('Pressing button...') # WARN: debug
     ser.flush() # NOTE: necessary?

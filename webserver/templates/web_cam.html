@@ -25,14 +25,14 @@
     </script>
 
 
-    <form id="press_button" action="/press_button" method="get">
+    <form id="press_button" action="/press_button" method="post">
         <button type="submit">Press button</button>
     </form>
 
     <script>
         document.getElementById('press_button').addEventListener('submit', function (event) {
             event.preventDefault();
-            fetch('/press_button', {method: 'GET'})
+            fetch('/press_button', {method: 'POST'})
                 .then(response => response.json())
                 .then(data => console.log(data));
         });
