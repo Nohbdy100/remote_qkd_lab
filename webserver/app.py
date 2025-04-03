@@ -1,7 +1,8 @@
-from flask import Flask, jsonify, render_template
-import serial
+from flask import Flask, jsonify, render_template, Response
+import serial # for arduino control
 import sys # for parsing args
 from unittest.mock import MagicMock # for local development
+import cv2 # for video capture
 
 """
 utilities
@@ -43,6 +44,15 @@ server
 """
 
 app = Flask(__name__)
+cam_port = '/dev/video0'
+
+def gen():
+    cap = cv2.VideoCapture(cam_port)
+    while True:
+        ret, frame = cap.read()
+        if not ret: break
+        ret, jpeg = cv2.imencode('.jpg', frame)
+        yield (b'--frame\r\n Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
 
 @app.route('/press_button', methods=['POST'])
 def press_button():
@@ -51,6 +61,10 @@ def press_button():
     ser.write(b'press')
     print('Button Pressed') # WARN: debug
     return jsonify({'message': 'button pressed'})
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/web_cam')
 def web_cam():
