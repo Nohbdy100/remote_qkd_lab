@@ -10,15 +10,16 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset>
-                <legend>Register</legend>
+                <legend>Log In</legend>
                 {{ form.as_p }}
             </fieldset>
             <div>
-                <button type="submit">Submit</button>
+                <button type="submit">Login</button>
             </div>
         </form>
         <div>
-            <small>Already Have an Account? <a href="{% url 'login' %}">Sign In</a></small>
+            <small>Need an Account? <a href="{% url 'register' %}">Sign Up Now</a></small>
+            <br><small>Admin <a href="{% url 'admin:index' %}">Login</a></small>
         </div>
     </div>
 </body>
