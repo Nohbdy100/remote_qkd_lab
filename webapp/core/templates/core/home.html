@@ -13,5 +13,13 @@
             </div>
         {% endfor %}
     {% endif %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.item_name.label_tag }}
+            {{ form.item_name }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
