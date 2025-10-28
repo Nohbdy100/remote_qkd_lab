@@ -6,19 +6,10 @@
     <title></title>
 </head>
 <body>
-    {% if messages %}
-        {% for message in messages %}
-            <div>
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
     <div>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.item_name.label_tag }}
-            {{ form.item_name }}
-            <button type="submit">Submit</button>
+        <form method="GET">
+            {{ form }}
+            <input type="submit" value="submit">
         </form>
     </div>
 </body>
