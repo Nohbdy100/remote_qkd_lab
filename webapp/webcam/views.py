@@ -7,6 +7,9 @@ from django.http import StreamingHttpResponse
 import threading
 import cv2
 from .forms import CameraRotate
+#Sends the forms info to the esp32 for live demo
+from .esp32_control import send_command_to_esp32
+
 
 
 #Loads the webcam1 feed
@@ -28,19 +31,21 @@ def webcam2(request):
         pass
     return render(request, 'webcam2.html')
 
-
-
 #Loads the lab env
 def lab(request):
     form = CameraRotate(request.POST)
     # If form is valid redirects to homepage with success message
     if form.is_valid():
+        #Sends form info to esp32 for live demo
+        rotation = form.cleaned_data['camera_rotation']
+        rotation_map = {"-45": 1, "0": 2, "45": 3, "90": 4}
+        esp_command = rotation_map.get(rotation, 2)
+        send_command_to_esp32(esp_command)
         print("Angle changed to ", form.cleaned_data['camera_rotation'])
     #Remains on lab page
     else:
         form = CameraRotate()
-    context = {'form': form}
-    return render(request, 'lab.html', context)
+    return render(request, 'lab.html', {'form': form})
 
 
 
