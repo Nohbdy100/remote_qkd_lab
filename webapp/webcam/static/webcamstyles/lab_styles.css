@@ -1,0 +1,21 @@
+.dual-cam-feed-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 20px;
+    margin:20px auto;
+    max-width: 1200px;
+}
+
+.webcam-feed{
+    width: 48%;
+    padding: 10px;
+    border: 1px solid #000000;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.webcam-feed img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
