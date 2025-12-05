@@ -1,30 +1,42 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from .forms import AppointmentForm
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Appointment
-
-
-def welcome(request):
-    return render(request, 'welcome.html' , {'greeting': 'Welcome to the site!'})
+from .forms import AppointmentForm
 
 
 def appointments(request):
-    appointments = Appointment.objects.filter(id = request.user.id)
+    appts = Appointment.objects.all()
+    return render(request, "appointments/my_appointments.html", {
+        "appointments": appts,
+    })
 
-    return render(request, 'appointments/my_appointments.html' , {'greeting': 'Welcome to the site!', 'appointments': appointments})
 
 def appointment_scheduler(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            appointment = form.save(commit=False)  # create but don’t save yet
-            appointment.user = request.user        # assign logged-in user
-            appointment.save()                     # now save to DB
-            messages.success(request, 'Appointment successfully scheduled!')
-            return redirect('appointment_scheduler')        # replace with your appointment list page
+            form.save()
+            messages.success(request, "Appointment successfully scheduled!")
+            return redirect("appointments:appointments")
     else:
         form = AppointmentForm()
-    
-    return render(request, 'appointments/reserve_slot.html', {'form': form})
- 
+
+    return render(request, "appointments/reserve_slot.html", {
+        "form": form,
+    })
+
+
+def cancel_appointment(request, pk):
+    appt = get_object_or_404(Appointment, pk=pk)
+    appt.status = "cancelled"
+    appt.save()
+    messages.success(request, "Appointment cancelled.")
+    return redirect("appointments:appointments")
+
+
+def complete_appointment(request, pk):
+    appt = get_object_or_404(Appointment, pk=pk)
+    appt.status = "complete"
+    appt.save()
+    messages.success(request, "Appointment marked complete.")
+    return redirect("appointments:appointments")

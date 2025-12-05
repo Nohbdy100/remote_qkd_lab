@@ -1,8 +1,16 @@
 from django.urls import path
 from . import views
 
+app_name = "appointments"
+
 urlpatterns = [
-    path('welcome/', views.welcome, name='welcome'),  # root page
-    path('appointment_scheduler/', views.appointment_scheduler, name='appointment_scheduler'),
-    path('appointments/', views.appointments, name='appointments'),  # optional test view
+    # Show all appointments
+    path("", views.appointments, name="appointments"),
+
+    # Schedule form
+    path("appointment_scheduler/", views.appointment_scheduler, name="appointment_scheduler"),
+
+    # Action buttons
+    path("<int:pk>/cancel/", views.cancel_appointment, name="cancel"),
+    path("<int:pk>/complete/", views.complete_appointment, name="complete"),
 ]

@@ -1,26 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Reserve a timeslot</title>
+    <title>Reserve Appointment</title>
 </head>
 <body>
-  <h1>Reserve a timeslot</h1>
 
-  {% if messages %}
-    <ul>
-      {% for m in messages %}
-        <li>{{ m }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+<h1>Reserve a Timeslot</h1>
 
-  <form method="post">
+<form method="post">
     {% csrf_token %}
     <table>
-      {{ form.as_table }}
+        {{ form.as_table }}
     </table>
     <button type="submit">Reserve</button>
-    <a href="{% url 'appointments' %}">Back</a>
-  </form>
+</form>
+
+<p><a href="{% url 'appointments:appointments' %}">Back to My Appointments</a></p>
+
 </body>
 </html>
