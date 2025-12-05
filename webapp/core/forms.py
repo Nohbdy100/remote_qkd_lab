@@ -1,11 +1,11 @@
 from django import forms
 
-CAMERA_STATES = (
+LENS_STATES = (
     ("-45", "-45"),
     ("0", "0"),
     ("45", "45"),
     ("90", "90")
 )
 
-class CameraRotate(forms.Form):
-    camera_rotation = forms.ChoiceField(choices=CAMERA_STATES)
+class LensPolarity(forms.Form):
+    lens_rotation = forms.ChoiceField(choices=LENS_STATES)
